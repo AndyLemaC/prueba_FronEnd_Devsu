@@ -1,27 +1,29 @@
-# PruebaFrontEndAngular16
+# PruebaFrontEnd
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Esta es una aplicación Angular para la gestión de productos financieros. con [Angular CLI](https://github.com/angular/angular-cli) version 16
 
-## Development server
+## Requisitos previos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Node.js (v16 o superior)
+- npm (v8 o superior)
+- Angular CLI (v17 o superior)
 
-## Code scaffolding
+## Clonar Repositorio
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+git clone https://github.com/AndyLemaC/Prueba_FrontEnd
+cd Prueba_FrontEnd
 
-## Build
+##Instalar dependencias
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+npm install
 
-## Running unit tests
+##Configuracion BackeEnd
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Descargar y configurar el backend según las instrucciones proporcionadas
+- Asegurarse de que el backend esté corriendo en http://localhost:3002
 
-## Running end-to-end tests
+## Inicar Servidor
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Ejecutar `ng serve` para ejecutar el dev. Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambia alguno de los archivos de origen.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
