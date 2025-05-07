@@ -1,1 +1,432 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sass:math";
+@import 'assets/styles/variables';
+@import 'assets/styles/mixins';
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $text-color;
+  background-color: $light-gray;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: $spacing-md;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: $font-size-xxl * 1.5;
+}
+
+h2 {
+  font-size: $font-size-xxl;
+}
+
+h3 {
+  font-size: $font-size-xl;
+}
+
+h4 {
+  font-size: $font-size-lg;
+}
+
+p {
+  margin-bottom: $spacing-md;
+}
+
+/* Links */
+a {
+  color: $primary-color;
+  text-decoration: none;
+  @include transition(color);
+  
+  &:hover {
+    color: darken($primary-color, 10%);
+    text-decoration: underline;
+  }
+}
+
+/* Contenedores */
+.container {
+  width: 100%;
+  padding-right: $spacing-md;
+  padding-left: $spacing-md;
+  margin-right: auto;
+  margin-left: auto;
+  
+  @include tablet-up {
+    max-width: 720px;
+  }
+  
+  @include desktop-up {
+    max-width: 960px;
+  }
+  
+  @include respond-to(xl) {
+    max-width: 1140px;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -$spacing-md;
+  margin-left: -$spacing-md;
+}
+
+/* Botones */
+.btn {
+  @include button-base;
+  
+  &-primary {
+    background-color: $primary-color;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+  
+  &-secondary {
+    background-color: $secondary-color;
+    color: $primary-color;
+    
+    &:hover:not(:disabled) {
+      background-color: darken($secondary-color, 10%);
+    }
+  }
+  
+  &-success {
+    background-color: $success-color;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      background-color: darken($success-color, 10%);
+    }
+  }
+  
+  &-danger {
+    background-color: $danger-color;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      background-color: darken($danger-color, 10%);
+    }
+  }
+  
+  &-outline {
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    
+    &:hover:not(:disabled) {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+
+  &-sm {
+    padding: math.div($spacing-sm, 2) $spacing-sm;
+    font-size: $font-size-sm;
+  }
+
+  &-lg {
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-lg;
+  }
+}
+
+/* Formularios */
+.form-group {
+  margin-bottom: $spacing-md;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: $spacing-xs;
+  font-weight: $font-weight-medium;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: $spacing-sm;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $text-color;
+  background-color: $white;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  @include transition(border-color, box-shadow);
+  
+  &:focus {
+    border-color: $primary-color;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+  
+  &.is-invalid {
+    @include input-error;
+  }
+  
+  &:disabled {
+    background-color: $medium-gray;
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: $spacing-xs;
+  font-size: $font-size-sm;
+  color: $danger-color;
+}
+
+/* Cards */
+.card {
+  @include card;
+  margin-bottom: $spacing-md;
+  
+  &-header {
+    padding-bottom: $spacing-md;
+    margin-bottom: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+  
+  &-body {
+    padding: $spacing-md 0;
+  }
+  
+  &-footer {
+    padding-top: $spacing-md;
+    margin-top: $spacing-md;
+    border-top: 1px solid $border-color;
+  }
+}
+
+/* Tables */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: $spacing-lg;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: $spacing-md;
+    text-align: left;
+    border-bottom: 1px solid $border-color;
+  }
+  
+  th {
+    font-weight: $font-weight-bold;
+    background-color: $light-gray;
+    color: $text-color-dark;
+  }
+  
+  tr {
+    background-color: rgba($light-gray, 0.5);
+  }
+  
+  .table-actions {
+    text-align: center;
+  }
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: $font-weight-bold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  
+  &-primary {
+    background-color: $primary-color;
+    color: $white;
+  }
+  
+  &-secondary {
+    background-color: $secondary-color;
+    color: $text-color;
+  }
+  
+  &-success {
+    background-color: $success-color;
+    color: $white;
+  }
+  
+  &-danger {
+    background-color: $danger-color;
+    color: $white;
+  }
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($black, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal-content {
+  @include card;
+  width: 100%;
+  max-width: 500px;
+  z-index: 1051;
+  
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: $spacing-md;
+    margin-bottom: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    
+    h3 {
+      margin-bottom: 0;
+    }
+    
+    .close-button {
+      background: none;
+      border: none;
+      font-size: $font-size-lg;
+      cursor: pointer;
+      color: $text-color-light;
+      
+      &:hover {
+        color: $text-color;
+      }
+    }
+  }
+  
+  .modal-body {
+    padding: $spacing-md 0;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+    padding-top: $spacing-md;
+    margin-top: $spacing-md;
+    border-top: 1px solid $border-color;
+  }
+}
+
+/* Skeleton loading */
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.skeleton {
+  background-color: $medium-gray;
+  border-radius: $border-radius;
+  animation: pulse 1.5s infinite;
+  
+  &-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  
+  &-circle {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  
+  &-button {
+    height: 38px;
+    width: 80px;
+  }
+}
+
+/* Utilities */
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: $spacing-xs; }
+.mb-2 { margin-bottom: $spacing-sm; }
+.mb-3 { margin-bottom: $spacing-md; }
+.mb-4 { margin-bottom: $spacing-lg; }
+.mb-5 { margin-bottom: $spacing-xl; }
+.mt-1 { margin-top: $spacing-xs; }
+.mt-2 { margin-top: $spacing-sm; }
+.mt-3 { margin-top: $spacing-md; }
+.mt-4 { margin-top: $spacing-lg; }
+.mt-5 { margin-top: $spacing-xl; }
+.mr-1 { margin-right: $spacing-xs; }
+.mr-2 { margin-right: $spacing-sm; }
+.mr-3 { margin-right: $spacing-md; }
+.ml-1 { margin-left: $spacing-xs; }
+.ml-2 { margin-left: $spacing-sm; }
+.ml-3 { margin-left: $spacing-md; }
+.p-1 { padding: $spacing-xs; }
+.p-2 { padding: $spacing-sm; }
+.p-3 { padding: $spacing-md; }
+.p-4 { padding: $spacing-lg; }
+.p-5 { padding: $spacing-xl; }

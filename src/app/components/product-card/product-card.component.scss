@@ -1,0 +1,137 @@
+@use "sass:math";
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.product-card {
+  @include card;
+  display: flex;
+  margin-bottom: $spacing-md;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba($black, 0.1);
+  }
+  
+  @include mobile-only {
+    flex-direction: column;
+  }
+}
+
+.product-image {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-md;
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  @include mobile-only {
+    margin: 0 auto $spacing-md;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: $font-size-lg;
+  margin-bottom: $spacing-xs;
+  color: $text-color-dark;
+}
+
+.product-id {
+  font-size: $font-size-sm;
+  color: $text-color-light;
+  margin-bottom: $spacing-xs;
+}
+
+.product-description {
+  font-size: $font-size-base;
+  margin-bottom: $spacing-sm;
+  color: $text-color;
+  line-height: 1.4;
+}
+
+.product-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  
+  .date-item {
+    display: flex;
+    flex-direction: column;
+    font-size: $font-size-sm;
+    
+    .date-label {
+      color: $text-color-light;
+      margin-bottom: math.div($spacing-xs, 2);
+    }
+    
+    .date-value {
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+.product-actions {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  padding: $spacing-xs;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background-color: $light-gray;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+  
+  .dots {
+    position: relative;
+    width: 4px;
+    height: 4px;
+    background-color: $text-color-light;
+    border-radius: 50%;
+    
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background-color: $text-color-light;
+      border-radius: 50%;
+    }
+    
+    &:before {
+      top: -6px;
+    }
+    
+    &:after {
+      bottom: -6px;
+    }
+  }
+}

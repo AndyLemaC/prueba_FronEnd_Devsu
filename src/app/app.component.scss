@@ -1,0 +1,67 @@
+@use "sass:math";
+@import '../assets/styles/variables';
+@import '../assets/styles/mixins';
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $background;
+}
+
+.app-header {
+  background-color: $white;
+  box-shadow: 0 2px 4px rgba($dark, 0.1);
+  padding: 1.5rem 0;
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 1rem;
+    
+    .bank-logo {
+      height: 50px;
+      margin-right: 1rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      color: $primary;
+      font-weight: 600;
+      margin: 0;
+      
+      @include respond-to(md) {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+.app-content {
+  flex: 1;
+  padding: 1rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  
+  @include respond-to(md) {
+    padding: 2rem;
+  }
+}
+
+.app-footer {
+  background-color: $white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto;
+  border-top: 1px solid $border-color;
+  
+  p {
+    color: $text-muted;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}

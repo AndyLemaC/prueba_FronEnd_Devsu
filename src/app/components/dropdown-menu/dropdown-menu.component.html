@@ -1,0 +1,12 @@
+
+<div class="dropdown">
+    <button class="dropdown-toggle" (click)="toggleDropdown($event)" aria-haspopup="true" [attr.aria-expanded]="isOpen">
+      <i class="menu-icon"></i>
+    </button>
+    <div class="dropdown-menu" *ngIf="isOpen">
+      <div class="dropdown-item" *ngFor="let option of options" (click)="onSelect(option.action)">
+        <i *ngIf="option.icon" class="option-icon" [ngClass]="option.icon"></i>
+        {{ option.label }}
+      </div>
+    </div>
+  </div>

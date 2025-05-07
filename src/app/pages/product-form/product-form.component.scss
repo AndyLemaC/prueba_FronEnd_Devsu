@@ -1,0 +1,150 @@
+@use "sass:math";
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.product-form-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: $white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba($dark, 0.1);
+  
+  .header {
+    margin-bottom: 2rem;
+    
+    h1 {
+      color: $primary;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    
+    label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: $dark;
+    }
+    
+    input, textarea {
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      
+      &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 2px rgba($primary, 0.2);
+      }
+      
+      &.invalid {
+        border-color: $danger;
+      }
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .helper-text {
+      font-size: 0.8rem;
+      color: $text-muted;
+      margin-top: 0.25rem;
+    }
+    
+    .error-messages {
+      margin-top: 0.5rem;
+      
+      span {
+        display: block;
+        color: $danger;
+        font-size: 0.8rem;
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    gap: 1rem;
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      
+      &.btn-primary {
+        background-color: $primary;
+        color: $white;
+        border: none;
+        
+        &:hover:not(:disabled) {
+          background-color: darken($primary, 10%);
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+      
+      &.btn-secondary {
+        background-color: $white;
+        color: $dark;
+        border: 1px solid $border-color;
+        
+        &:hover {
+          background-color: $light-gray;
+        }
+      }
+    }
+  }
+  
+  // Skeleton loading
+  .loading-skeleton {
+    .skeleton-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      
+      .skeleton-field {
+        height: 70px;
+        background: linear-gradient(90deg, $light-gray 25%, lighten($light-gray, 5%) 50%, $light-gray 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -1,0 +1,19 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="onBackdropClick($event)">
+    <div class="modal-container" role="dialog" aria-modal="true" [attr.aria-labelledby]="'modal-title-' + title">
+      <div class="modal-header">
+        <h3 [id]="'modal-title-' + title" class="modal-title">{{ title }}</h3>
+        <button type="button" class="modal-close" aria-label="Cerrar" (click)="onCancel()">×</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ message }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="onCancel()">
+          {{ cancelButtonText }}
+        </button>
+        <button type="button" class="btn" [ngClass]="confirmButtonClass" (click)="onConfirm()">
+          {{ confirmButtonText }}
+        </button>
+      </div>
+    </div>
+  </div>

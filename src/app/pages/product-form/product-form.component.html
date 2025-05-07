@@ -1,0 +1,118 @@
+<div class="product-form-container">
+    <div class="header">
+      <h1>{{ isEditMode ? 'Editar Producto' : 'Formulario de Registro' }}</h1>
+    </div>
+  
+    <div *ngIf="isLoading" class="loading-skeleton">
+      <div class="skeleton-form">
+        <div class="skeleton-field"></div>
+        <div class="skeleton-field"></div>
+        <div class="skeleton-field"></div>
+        <div class="skeleton-field"></div>
+        <div class="skeleton-field"></div>
+      </div>
+    </div>
+  
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+      <div class="form-grid">
+        <!-- ID Field -->
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input 
+            type="text" 
+            id="id" 
+            formControlName="id" 
+            [class.invalid]="controlInvalid('id')" 
+            placeholder="ID del producto">
+          <div class="error-messages" *ngIf="controlInvalid('id')">
+            <span *ngIf="hasError('id', 'required')">ID es requerido</span>
+            <span *ngIf="hasError('id', 'minlength')">ID debe tener al menos 3 caracteres</span>
+            <span *ngIf="hasError('id', 'maxlength')">ID no puede exceder 10 caracteres</span>
+            <span *ngIf="hasError('id', 'idExists')">Este ID ya existe</span>
+          </div>
+        </div>
+  
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            [class.invalid]="controlInvalid('name')" 
+            placeholder="Nombre del producto">
+          <div class="error-messages" *ngIf="controlInvalid('name')">
+            <span *ngIf="hasError('name', 'required')">Nombre es requerido</span>
+            <span *ngIf="hasError('name', 'minlength')">Nombre debe tener al menos 5 caracteres</span>
+            <span *ngIf="hasError('name', 'maxlength')">Nombre no puede exceder 100 caracteres</span>
+          </div>
+        </div>
+  
+        <!-- Description Field -->
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea 
+            id="description" 
+            formControlName="description" 
+            [class.invalid]="controlInvalid('description')" 
+            placeholder="Descripción del producto"></textarea>
+          <div class="error-messages" *ngIf="controlInvalid('description')">
+            <span *ngIf="hasError('description', 'required')">Descripción es requerida</span>
+            <span *ngIf="hasError('description', 'minlength')">Descripción debe tener al menos 10 caracteres</span>
+            <span *ngIf="hasError('description', 'maxlength')">Descripción no puede exceder 200 caracteres</span>
+          </div>
+        </div>
+  
+        <!-- Logo Field -->
+        <div class="form-group">
+          <label for="logo">Logo</label>
+          <input 
+            type="text" 
+            id="logo" 
+            formControlName="logo" 
+            [class.invalid]="controlInvalid('logo')" 
+            placeholder="URL del logo">
+          <div class="error-messages" *ngIf="controlInvalid('logo')">
+            <span *ngIf="hasError('logo', 'required')">Logo es requerido</span>
+          </div>
+        </div>
+  
+        <!-- Date Release Field -->
+        <div class="form-group">
+          <label for="date_release">Fecha de Liberación</label>
+          <input 
+            type="date" 
+            id="date_release" 
+            formControlName="date_release" 
+            [min]="minDate"
+            [class.invalid]="controlInvalid('date_release')">
+          <div class="error-messages" *ngIf="controlInvalid('date_release')">
+            <span *ngIf="hasError('date_release', 'required')">Fecha de liberación es requerida</span>
+            <span *ngIf="hasError('date_release', 'dateLaterThanOrEqual')">Fecha debe ser igual o mayor a la fecha actual</span>
+          </div>
+        </div>
+  
+        <!-- Date Revision Field -->
+        <div class="form-group">
+          <label for="date_revision">Fecha de Revisión</label>
+          <input 
+            type="date" 
+            id="date_revision" 
+            formControlName="date_revision" 
+            [class.invalid]="controlInvalid('date_revision')" 
+            readonly>
+          <div class="error-messages" *ngIf="controlInvalid('date_revision')">
+            <span *ngIf="hasError('date_revision', 'required')">Fecha de revisión es requerida</span>
+          </div>
+          <small class="helper-text">Un año después de la fecha de liberación</small>
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Reiniciar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+          {{ isEditMode ? 'Guardar' : 'Agregar' }}
+        </button>
+      </div>
+    </form>
+  </div>

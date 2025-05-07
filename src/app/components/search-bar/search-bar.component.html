@@ -1,0 +1,19 @@
+<div class="search-bar">
+    <div class="search-container">
+      <i class="search-icon"></i>
+      <input 
+        type="text"
+        class="search-input"
+        [placeholder]="placeholder" 
+        [formControl]="searchControl"
+        aria-label="Buscar productos financieros"
+      >
+      <button 
+        *ngIf="searchControl.value" 
+        class="clear-button" 
+        (click)="clearSearch()" 
+        aria-label="Limpiar búsqueda">
+        ×
+      </button>
+    </div>
+  </div>

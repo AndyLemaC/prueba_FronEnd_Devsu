@@ -1,0 +1,92 @@
+@use "sass:math";
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.search-bar {
+  margin-bottom: $spacing-lg;
+  width: 100%;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: $spacing-md;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236c757d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: $spacing-md $spacing-xl $spacing-md 2.5rem;
+  font-size: $font-size-base;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $white;
+  @include transition(border-color, box-shadow);
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+  
+  @include placeholder {
+    color: $light-text;
+  }
+}
+
+.clear-button {
+  position: absolute;
+  right: $spacing-md;
+  background: none;
+  border: none;
+  font-size: $font-size-xl;
+  line-height: 1;
+  color: $light-text;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  
+  &:hover {
+    background-color: $medium-gray;
+  }
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+// Responsive
+@include mobile-only {
+  .search-input {
+    padding: $spacing-sm $spacing-lg $spacing-sm 2rem;
+    font-size: $font-size-sm;
+  }
+  
+  .search-icon {
+    left: $spacing-sm;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .clear-button {
+    right: $spacing-sm;
+    font-size: $font-size-lg;
+    width: 18px;
+    height: 18px;
+  }
+}

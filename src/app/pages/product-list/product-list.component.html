@@ -1,0 +1,132 @@
+<div class="container">
+    <div class="page-header">
+      
+      <app-search-bar 
+            [placeholder]="'Buscar producto...'" 
+            (searchTermChange)="onSearch($event)">
+        </app-search-bar>
+      <button class="btn btn-primary" (click)="navigateToAddProduct()">
+        Agregar
+      </button>
+    </div>
+    
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        
+        
+        <div class="page-size-selector">
+          <select 
+            class="form-control" 
+            [(ngModel)]="pageSize" 
+            (change)="onPageSizeChange(pageSize)">
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <!-- Skeleton Loader -->
+        <ng-container *ngIf="isLoading">
+          <div class="skeleton-loader" *ngFor="let i of [1, 2, 3, 4, 5]">
+            <div class="skeleton-row">
+              <div class="skeleton skeleton-circle"></div>
+              <div class="skeleton-content">
+                <div class="skeleton skeleton-text" style="width: 40%"></div>
+                <div class="skeleton skeleton-text" style="width: 70%"></div>
+                <div class="skeleton skeleton-text" style="width: 60%"></div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+        <!-- Tabla de productos -->
+        <div class="table-container" *ngIf="!isLoading">
+          <table *ngIf="paginatedProducts.length > 0; else noProductsTemplate">
+            <thead>
+              <tr>
+                <th>Logo</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha de Liberación</th>
+                <th>Fecha de Revisión</th>
+                <th class="table-actions">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of paginatedProducts">
+                <td>
+                  <div class="product-logo">
+                    <img [src]="product.logo" [alt]="product.name">
+                  </div>
+                </td>
+                <td>
+                  <div class="product-name-id">
+                    <div class="product-name">{{ product.name }}</div>
+                    <div class="product-id">ID: {{ product.id }}</div>
+                  </div>
+                </td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.date_release | date:'dd/MM/yyyy' }}</td>
+                <td>{{ product.date_revision | date:'dd/MM/yyyy' }}</td>
+                <td class="table-actions">
+                  <div class="actions-container">
+                    <!--<button class="dropdown-toggle" (click)="$event.stopPropagation(); product.showDropdown = !product.showDropdown"> 
+                      (optionSelected)="$event === 'edit' ? onEditProduct(product) : onDeleteProduct(product)" 
+                      (close)="product.showDropdown = false"> -->
+                    <button class="dropdown-toggle" (click)="handleDropdownToggle($event, product)">
+                      <span class="dots"></span>
+                    </button>
+                    <app-dropdown-menu 
+                      *ngIf="product['showDropdown']"
+                      [options]="[
+                        { label: 'Editar', action: 'edit' },
+                        { label: 'Eliminar', action: 'delete' }
+                      ]"
+                      (optionSelected)="handleOptionSelected($event, product)"
+                      (close)="product['showDropdown'] = false">
+                    </app-dropdown-menu>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <ng-template #noProductsTemplate>
+            <div class="no-products">
+              <p>No se encontraron productos financieros.</p>
+            </div>
+          </ng-template>
+        </div>
+        
+        <!-- Información de paginación -->
+        <div class="pagination-container" *ngIf="!isLoading">
+          <div class="pagination-info">
+            Mostrando {{ paginatedProducts.length }} de {{ filteredProducts.length }} resultados
+          </div>
+          
+          <app-pagination 
+            [currentPage]="currentPage"
+            [totalItems]="filteredProducts.length"
+            [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal de confirmación para eliminar -->
+  <app-modal 
+    *ngIf="isModalVisible" 
+    [title]="'Eliminar producto'"
+    (close)="closeModal()">
+    <div class="modal-body">
+      <p>¿Estás seguro que deseas eliminar el producto <strong>{{ productToDelete?.name }}</strong>?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+      <button class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>
+    </div>
+  </app-modal>
